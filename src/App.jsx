@@ -5,12 +5,13 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import CandyStore from "./pages/CandyStore";
 import Payment from "./pages/Payment";
+import LoadingModal from "./components/Common/navigation/LoadingModal";
 
 const App  = () => {
   return (
       <Box>
           <MenuNavBar />
-          <Box width="100%" p={0}>
+          <Box className="max-w-full p-0">
               <Routes>
                   <Route path="/" element={<Home />}/>
                   <Route path="/login" element={<Login />}/>
@@ -18,6 +19,7 @@ const App  = () => {
                   <Route path="/payment" element={<Payment />}/>
               </Routes>
           </Box>
+          <LoadingModal />
       </Box>
   )
 }

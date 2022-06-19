@@ -38,25 +38,19 @@ const MenuNavBar = () => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <TheatersIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+                    <TheatersIcon className="sm:hidden md:flex mr-1"/>
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
                         href="/"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'none', md: 'flex'},
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
+                        className="mr-2 sm:hidden md:flex font-mono font-bold tracking-widest text-inherit no-underline"
                     >
                         RetoCP
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                    <Box
+                        className="grow sm:flex md:hidden"
+                    >
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -81,9 +75,7 @@ const MenuNavBar = () => {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{
-                                display: {xs: 'block', md: 'none'},
-                            }}
+                            className="sm:block md:hidden"
                         >
                             {pages.map((page) => (
                                 <MenuItem
@@ -97,31 +89,24 @@ const MenuNavBar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <TheatersIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
+                    <TheatersIcon
+                        className="sm:flex md:hidden mr-1"/>
                     <Typography
                         variant="h5"
                         noWrap
                         component="a"
                         href=""
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'flex', md: 'none'},
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
+                        className="mr-2 sm:flex md:hidden font-mono font-bold tracking-widest text-inherit no-underline"
                     >
                         RetoCP
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box
+                        className="grow sm:hidden md:flex">
                         {pages.map((page) => (
                             <Button
                                 key={page.path}
                                 onClick={e => handleCloseNavMenu(e, page)}
-                                sx={{my: 2, color: 'white', display: 'block'}}
+                                className="my-2 text-white block"
                             >
                                 {page.label}
                             </Button>

@@ -1,10 +1,12 @@
 import React from 'react';
 import {Box, Container} from "@mui/material";
 
+
+
 const BaseContainer = ({children}) => {
     return(
         <Container
-            maxWidth='xl'
+            className="max-w-full"
         >
             <Box
                 width="100%"
