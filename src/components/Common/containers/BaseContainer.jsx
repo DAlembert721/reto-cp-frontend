@@ -4,15 +4,8 @@ import {Box, Container, Divider, Typography} from "@mui/material";
 
 const BaseContainer = ({title, children}) => {
     return (
-        <Box
-            component="main"
-            sx={{
-                display:"grid",
-                padding: 2,
-                gap: 1
-            }}
-        >
-            <Box className="flex flex-row justify-between w-full align-middle">
+        <Container maxWidth="xl">
+            <Box>
                 <Typography variant="h4" className="text-start" color="primary">
                     {title}
                 </Typography>
@@ -21,7 +14,7 @@ const BaseContainer = ({title, children}) => {
             <Box>
                 {children}
             </Box>
-        </Box>
+        </Container>
 
     );
 }
