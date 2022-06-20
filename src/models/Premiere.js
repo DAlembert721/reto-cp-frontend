@@ -5,6 +5,15 @@ class Premiere {
         this.description = description;
         this.image = image;
     }
+
+    static map = premier => {
+        return new Premiere(
+            premier.id,
+            premier.description,
+            premier.description,
+            premier.image
+        )
+    }
 }
 
 export default Premiere;

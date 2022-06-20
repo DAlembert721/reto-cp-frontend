@@ -1,11 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchAllPremieres} from "../../services/PremiersServices";
+import {fetchAllPremieres} from "../../services/PremieresServices";
 
 const INIT_STATE = {
     data: []
 }
 
-export const premieresSlice = createSlice({
+const premieresSlice = createSlice({
     name: 'premieres',
     initialState: {
         ...INIT_STATE
@@ -22,7 +22,7 @@ export const {getAllPremieres,} = premieresSlice.actions;
 
 export const startGetAllPremieres = () => {
     return async dispatch => {
-        fetchAllPremieres
+        fetchAllPremieres()
             .then(premieres => {
                 dispatch(getAllPremieres(premieres))
             })

@@ -14,7 +14,7 @@ const INIT_STATE = {
     errorMessage: null
 }
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState: {
         ...INIT_STATE

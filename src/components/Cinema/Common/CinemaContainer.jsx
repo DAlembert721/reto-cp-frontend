@@ -1,14 +1,12 @@
 import React from 'react';
-import {Box} from "@mui/material";
-import MenuNavBar from "../../Common/navigation/MenuNavBar";
 import BaseContainer from "../../Common/containers/BaseContainer";
 
 const CinemaContainer = ({title, children}) => (
-    <Box className="flex">
-        <BaseContainer title={title}>
-            {children}
-        </BaseContainer>
-    </Box>
+
+    <BaseContainer title={title}>
+        {children}
+    </BaseContainer>
+
 );
 
 export default CinemaContainer;

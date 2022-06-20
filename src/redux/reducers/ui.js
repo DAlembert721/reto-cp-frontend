@@ -8,7 +8,7 @@ const INIT_STATE = {
     }
 }
 
-export const uiSlice = createSlice({
+const uiSlice = createSlice({
     name: 'ui',
     initialState: {
         ...INIT_STATE
