@@ -11,12 +11,13 @@ export const useCheckAuth = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-
-        onAuthStateChanged( FirebaseAuth, async( user ) => {
-            if ( !user ) return dispatch( logout() );
-            const { uid, email, displayName } = user;
-            dispatch( login({ uid, email, displayName }) );
-        })
+        if(status !== 'invite') {
+            onAuthStateChanged( FirebaseAuth, async( user ) => {
+                if ( !user ) return dispatch( logout() );
+                const { uid, email, displayName } = user;
+                dispatch( login({ uid, email, displayName }) );
+            })
+        }
     }, []);
 
     return status;

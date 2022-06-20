@@ -11,10 +11,18 @@ const AppRouter = () => {
     if (status === 'checking') {
         return <CheckingAuth/>
     }
+    if (status === 'invite') {
+        return (
+            <Routes>
+                <Route path="/*" element={<CinemaRoutes/>}/>
+                <Route path="/auth/*" element={<AuthRoutes/>}/>
+            </Routes>
+        )
+    }
     return (
         <Routes>
             {
-                (status === 'authenticated')
+                (status === 'authenticated' || status==='invite')
                     ? <Route path="/*" element={<CinemaRoutes/>}/>
                     : <Route path="/auth/*" element={<AuthRoutes/>}/>
             }
