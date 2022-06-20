@@ -1,22 +1,22 @@
 import React from 'react';
-import {Box, Container} from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 
 
-
-const BaseContainer = ({children}) => {
-    return(
-        <Container
-            className="max-w-full"
+const BaseContainer = ({title, children}) => {
+    return (
+        <Box
+            component="main"
+            className="flex-grow p-3"
         >
-            <Box
-                width="100%"
-            >
-                <Box>
-                    {children}
-                </Box>
+            <Box className="flex flex-row justify-between w-full align-middle">
+                <Typography variant="h4" className="text-start" color="primary">
+                    {title}
+                </Typography>
             </Box>
-
-        </Container>
+            <Box>
+                {children}
+            </Box>
+        </Box>
 
     );
 }

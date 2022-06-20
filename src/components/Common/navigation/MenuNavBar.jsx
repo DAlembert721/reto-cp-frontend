@@ -3,6 +3,9 @@ import {AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typ
 import TheatersIcon from '@mui/icons-material/Theaters';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
+import {useCheckAuth} from "../../../hooks/useCheckAuth";
+import {useDispatch} from "react-redux";
+import {logout, logoutFromFirebase} from "../../../redux/reducers/auth";
 
 const pages = [
     {
@@ -10,21 +13,15 @@ const pages = [
         label: 'Home'
     },
     {
-        path: '/login',
-        label: 'Login'
-    },
-    {
         path: '/candy-store',
-        label: 'Candy Store'
+        label: 'Dulceria'
     },
-    {
-        path: '/payment',
-        label: 'Payment'
-    }
 ];
 
 const MenuNavBar = () => {
     const navigate = useNavigate();
+    const status = useCheckAuth();
+    const dispatch = useDispatch();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -33,6 +30,12 @@ const MenuNavBar = () => {
         setAnchorElNav(null);
         navigate(page.path);
     };
+
+    const onLogout = (event) => {
+        event.preventDefault();
+        dispatch(logoutFromFirebase());
+    }
+
 
     return (
         <AppBar position="static">
@@ -87,6 +90,21 @@ const MenuNavBar = () => {
                                     </Typography>
                                 </MenuItem>
                             ))}
+                            {status === 'invite'
+                                ? <MenuItem
+                                onClick={e => navigate("/auth/login")}>
+                                <Typography
+                                    textAlign="center">
+                                    Login
+                                </Typography>
+                            </MenuItem>
+                                :<MenuItem onClick={onLogout}>
+                                    <Typography
+                                        textAlign="center">
+                                        Logout
+                                    </Typography>
+                                </MenuItem>
+                            }
                         </Menu>
                     </Box>
                     <TheatersIcon
@@ -111,6 +129,21 @@ const MenuNavBar = () => {
                                 {page.label}
                             </Button>
                         ))}
+                        {status === 'invite'
+                            ?  <Button
+                                onClick={e => navigate('auth/login')}
+                                className="my-2 text-white block"
+                            >
+                                Login
+                            </Button>
+                            : <Button
+                                onClick={onLogout}
+                                className="my-2 text-white block"
+                            >
+                                Logout
+                            </Button>
+                        }
+
                     </Box>
                 </Toolbar>
             </Container>
