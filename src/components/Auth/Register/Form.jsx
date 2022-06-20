@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Button, Grid, Link, TextField, Typography} from "@mui/material";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {useForm} from "../../../hooks/useForm";
 import {createUserWithRegisterFormData} from "../../../redux/reducers/auth";
 import {useDispatch, useSelector} from "react-redux";
@@ -19,6 +19,7 @@ const validations = {
 }
 
 const Form = (props) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formSubmitted, setFormSubmitted] = React.useState(false);
 
@@ -34,6 +35,7 @@ const Form = (props) => {
         setFormSubmitted(true);
         if ( !isFormValid ) return;
         dispatch(createUserWithRegisterFormData(formState));
+        navigate("/candy-store");
     }
 
     return(

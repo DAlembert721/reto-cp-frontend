@@ -12,10 +12,10 @@ const pages = [
         path: '/',
         label: 'Home'
     },
-    {
-        path: '/candy-store',
-        label: 'Dulceria'
-    },
+    // {
+    //     path: '/candy-store',
+    //     label: 'Dulceria'
+    // },
 ];
 
 const MenuNavBar = () => {

@@ -6,6 +6,7 @@ import {startGetAllCandyStoreItems} from "../../redux/reducers/candyStore";
 import {Box, Grid} from "@mui/material";
 import OrderDetail from "../../components/Cinema/CandyStore/OrderDetail";
 import AddItemDialog from "../../components/Cinema/CandyStore/AddItemDialog";
+import LoggedCaseDialog from "../../components/Cinema/CandyStore/LoggedCaseDialog";
 
 const CandyStore = () => {
     const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const CandyStore = () => {
                 setItem={setSelectedItem}
                 onAddItem={onAddItem}
             />
+            <LoggedCaseDialog />
         </CinemaContainer>
     );
 }

@@ -28,16 +28,18 @@ const Form = (props) => {
 
     const onClickInvite = () => {
         dispatch(loginLikeInvite());
-        navigate("/");
+        navigate("/candy-store");
     }
     const onSubmit = e => {
         e.preventDefault();
         setFormSubmitted(true);
         if ( !isFormValid ) return;
         dispatch(loginWithLoginForm(formState));
+        navigate("/candy-store");
     }
     const onGoogleSignIn = () => {
         dispatch(loginWithGoogle());
+        navigate("/candy-store");
     }
 
     return (
