@@ -5,7 +5,6 @@ import BaseContainer from "../../Common/containers/BaseContainer";
 
 const CinemaContainer = ({title, children}) => (
     <Box className="flex">
-        <MenuNavBar />
         <BaseContainer title={title}>
             {children}
         </BaseContainer>

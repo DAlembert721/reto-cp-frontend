@@ -7,7 +7,7 @@ import {
 } from "../../firebase/providers";
 
 const INIT_STATE = {
-    status: 'checking', //'checking', 'not-authenticated', 'authenticated', 'invite'
+    status: 'invite', //'checking', 'not-authenticated', 'authenticated', 'invite'
     uid: null,
     email: null,
     displayName: null,

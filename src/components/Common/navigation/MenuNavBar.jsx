@@ -26,9 +26,8 @@ const MenuNavBar = () => {
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleCloseNavMenu = (e, page) => {
+    const handleCloseNavMenu = (e) => {
         setAnchorElNav(null);
-        navigate(page.path);
     };
 
     const onLogout = (event) => {
@@ -36,118 +35,136 @@ const MenuNavBar = () => {
         dispatch(logoutFromFirebase());
     }
 
-
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <TheatersIcon className="sm:hidden md:flex mr-1"/>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        className="mr-2 sm:hidden md:flex font-mono font-bold tracking-widest text-inherit no-underline"
-                    >
-                        RetoCP
-                    </Typography>
-                    <Box
-                        className="grow sm:flex md:hidden"
-                    >
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Container maxWidth="xl">
+                    <Toolbar disableGutters>
+                        <TheatersIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            href="/"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
                             }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            className="sm:block md:hidden"
                         >
+                            LOGO
+                        </Typography>
+
+                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                {pages.map((page) => (
+                                    <MenuItem key={page.label} onClick={e => {
+                                        handleCloseNavMenu(e);
+                                        navigate(page.path);
+                                    }}>
+                                        <Typography textAlign="center">{page.label}</Typography>
+                                    </MenuItem>
+                                ))}
+                                {status === 'invite'
+                                    ? <MenuItem
+                                        onClick={e => navigate("/auth/login")}>
+                                        <Typography
+                                            textAlign="center">
+                                            Login
+                                        </Typography>
+                                    </MenuItem>
+                                    :<MenuItem onClick={onLogout}>
+                                        <Typography
+                                            textAlign="center">
+                                            Logout
+                                        </Typography>
+                                    </MenuItem>
+                                }
+                            </Menu>
+                        </Box>
+                        <TheatersIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component="a"
+                            href=""
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            LOGO
+                        </Typography>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
-                                <MenuItem
-                                    key={page.path}
-                                    onClick={e => handleCloseNavMenu(e, page)}>
-                                    <Typography
-                                        textAlign="center">
-                                        {page.label}
-                                    </Typography>
-                                </MenuItem>
+                                <Button
+                                    key={page.label}
+                                    onClick={e => {
+                                        handleCloseNavMenu(e);
+                                        navigate(page.path);
+                                    }}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    {page.label}
+                                </Button>
                             ))}
                             {status === 'invite'
-                                ? <MenuItem
-                                onClick={e => navigate("/auth/login")}>
-                                <Typography
-                                    textAlign="center">
+                                ?  <Button
+                                    onClick={e => navigate('auth/login')}
+                                    className="my-2 text-white block"
+                                >
                                     Login
-                                </Typography>
-                            </MenuItem>
-                                :<MenuItem onClick={onLogout}>
-                                    <Typography
-                                        textAlign="center">
-                                        Logout
-                                    </Typography>
-                                </MenuItem>
+                                </Button>
+                                : <Button
+                                    onClick={onLogout}
+                                    className="my-2 text-white block"
+                                >
+                                    Logout
+                                </Button>
                             }
-                        </Menu>
-                    </Box>
-                    <TheatersIcon
-                        className="sm:flex md:hidden mr-1"/>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        className="mr-2 sm:flex md:hidden font-mono font-bold tracking-widest text-inherit no-underline"
-                    >
-                        RetoCP
-                    </Typography>
-                    <Box
-                        className="grow sm:hidden md:flex">
-                        {pages.map((page) => (
-                            <Button
-                                key={page.path}
-                                onClick={e => handleCloseNavMenu(e, page)}
-                                className="my-2 text-white block"
-                            >
-                                {page.label}
-                            </Button>
-                        ))}
-                        {status === 'invite'
-                            ?  <Button
-                                onClick={e => navigate('auth/login')}
-                                className="my-2 text-white block"
-                            >
-                                Login
-                            </Button>
-                            : <Button
-                                onClick={onLogout}
-                                className="my-2 text-white block"
-                            >
-                                Logout
-                            </Button>
-                        }
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        </Box>
 
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
     );
 }
 

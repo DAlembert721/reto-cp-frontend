@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {uiSlice} from "./ui";
+import {fetchAllPremieres} from "../../services/PremiersServices";
 
 const INIT_STATE = {
-    data: {}
+    data: []
 }
 
 export const premieresSlice = createSlice({
@@ -11,12 +11,23 @@ export const premieresSlice = createSlice({
         ...INIT_STATE
     },
      reducers: {
-        getAllPremieres: (state, payload) => {
-
+        getAllPremieres: (state, action) => {
+            state.data = action.payload;
         }
      }
 });
 
 
+export const {getAllPremieres,} = premieresSlice.actions;
 
-export default uiSlice.reducer;
+export const startGetAllPremieres = () => {
+    return async dispatch => {
+        fetchAllPremieres
+            .then(premieres => {
+                dispatch(getAllPremieres(premieres))
+            })
+            .catch(e => console.log(e));
+    }
+}
+
+export default premieresSlice.reducer;
