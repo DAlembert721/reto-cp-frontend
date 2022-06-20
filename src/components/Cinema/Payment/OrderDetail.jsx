@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Button, Grid, TableCell, TableRow} from "@mui/material";
-import BaseTable from "../Common/tables/BaseTable";
+import BaseTable from "../../Common/tables/BaseTable";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
@@ -24,7 +24,7 @@ const OrderDetail = () => {
         navigate('/candy-store');
     }
     return(
-        <Grid item xs={12}>
+        <Grid item xs={6}>
             <Box
                 className="my-4"
                 sx={{

@@ -41,5 +41,5 @@ export const useForm = (initialState = {}, validators = {},) => {
     }
 
 
-    return {...values, handleInputChange, reset, formState: values, ...validation, isFormValid};
+    return {...values, handleInputChange, reset, formState: values, formValidations: validation, ...validation, isFormValid};
 }
