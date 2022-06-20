@@ -5,6 +5,8 @@ import {Box, Button, Grid, MenuItem, Paper, TextField, Typography} from "@mui/ma
 import Cleave from 'cleave.js/react';
 import CardInput from "../../Common/form/inputs/CardInput";
 import Select from "../../Common/form/selects/Select";
+import {startPurchase} from "../../../redux/reducers/payment";
+import {useDispatch, useSelector} from "react-redux";
 
 const initialData = {
     card: "",
@@ -13,14 +15,14 @@ const initialData = {
     cvv: "",
     email: "",
     cardHolder: "",
-    documentType: "",
+    documentType: "DNI",
     document: "",
 }
 
 const validations = {
     card: [value => value.trim().length > 0 && value.trim().length <= 16, "El numero de tarjeta debe tener entre 0 y 4 caracteres"],
-    expirationYear: [value => value.trim().length > 0 && value.trim().length <= 2, "El Año fecha ingresada es incorrecta"],
-    expirationMonth: [value => value.trim().length > 0 && value.trim().length <= 2, "El mes ingresada es incorrecta"],
+    expirationYear: [value => value.toString().trim().length > 0 && value.toString().trim().length <= 2, "El Año fecha ingresada es incorrecta"],
+    expirationMonth: [value => value.toString().trim().length > 0 && value.toString().trim().length <= 2, "El mes ingresada es incorrecta"],
     cvv: [value => value.trim().length > 0 && value.trim().length <= 4, "El codigo de seguridad debe tener entre 0 y 4 caracteres"],
     email: [value => value.includes('@'), ""],
     cardHolder: [value => value.trim().length > 0, "El nombre es necesario"],
@@ -30,16 +32,20 @@ const validations = {
 
 
 
-const Form = (props) => {
+const Form = () => {
+    const dispatch = useDispatch();
+    const {selectedItems} = useSelector(state => state.payment);
     const [formSubmitted, setFormSubmitted] = React.useState(false);
-
     const {
         formState, formValidations,
         isFormValid, handleInputChange
     } = useForm(initialData, validations);
     const onSubmit = e => {
         e.preventDefault();
-        console.log(formState)
+        console.log('submit')
+        const amount = selectedItems.reduce((a, b)=> a + b.quantity * b.price, 0);
+        // if(!isFormValid) return;
+        dispatch(startPurchase({...formState, amount}));
     }
     return (
         <Grid item xs={6} className="flex justify-center">
@@ -148,9 +154,10 @@ const Form = (props) => {
                                 onChange={handleInputChange}
                                 required
                             >
-                                <MenuItem value="1">DNI</MenuItem>
-                                <MenuItem value="2">Pasaporte</MenuItem>
-                                <MenuItem value="3">Carnet de Extranjeria</MenuItem>
+                                <MenuItem value="DNI">DNI</MenuItem>
+                                <MenuItem value="CE">Carnet de Extranjeria</MenuItem>
+                                <MenuItem value="DE">Pasaporte</MenuItem>
+                                <MenuItem value="RUC">RUC</MenuItem>
                             </Select>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -172,6 +179,7 @@ const Form = (props) => {
                             className="flex justify-center mt-2"
                         >
                             <Button
+                                onClick={onSubmit}
                                 type="submit"
                                 fullWidth
                                 variant="contained"

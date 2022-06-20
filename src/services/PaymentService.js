@@ -1,14 +1,14 @@
 import axiosInstance from "../utils/axiosInstance";
 
-export const completePurchase = async ({name, email, dni, date}) => {
+export const completePurchase = async ({cardHolder, email, document, operationDate}) => {
     try {
         const {data} = axiosInstance.post(
             '/complete',
             {
-                name,
+                cardHolder,
                 mail: email,
-                dni,
-                operation_date: date,
+                document,
+                operation_date: operationDate,
             }
         )
         return {result: data.resul_code}
